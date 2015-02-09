@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 __global__
-void rgba_to_greyscale(const uchar4* const rgbaImage,
+void rgba_to_grey_kernel(const uchar4* const rgbaImage,
                        unsigned char* const greyImage,
                        int numRows, int numCols)
 {
@@ -25,14 +25,14 @@ void rgba_to_greyscale(const uchar4* const rgbaImage,
   //calculate a 1D offset
 }
 
-void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_rgbaImage,
+void rgba_to_grey(const uchar4 * const h_rgbaImage, uchar4 * const d_rgbaImage,
                             unsigned char* const d_greyImage, size_t numRows, size_t numCols)
 {
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
-  const dim3 blockSize(500, 1, 1);  //TODO
-  const dim3 gridSize(500, 1, 1);  //TODO
-  rgba_to_greyscale<<<gridSize, blockSize>>>(d_rgbaImage, d_greyImage, numRows, numCols);
+  const dim3 blockSize(512, 1, 1);  //TODO
+  const dim3 gridSize(512, 1, 1);  //TODO
+  rgba_to_grey_kernel<<<gridSize, blockSize>>>(d_rgbaImage, d_greyImage, numRows, numCols);
   
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 }

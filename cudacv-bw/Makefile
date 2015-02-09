@@ -17,14 +17,14 @@ NVCC_OPTS=-O3 -arch=sm_11 -Xcompiler -Wall -Xcompiler -Wextra -m64
 
 GCC_OPTS=-O3 -Wall -Wextra -m64
 
-student: main.o student_func.o Makefile
-	$(NVCC) -o HW1 main.o student_func.o -L $(OPENCV_LIBPATH) $(OPENCV_LIBS) $(NVCC_OPTS)
+student: main.o rgba_to_grey.o Makefile
+	$(NVCC) -o image_process main.o rgba_to_grey.o -L $(OPENCV_LIBPATH) $(OPENCV_LIBS) $(NVCC_OPTS)
 
-main.o: main.cpp timer.h utils.h HW1.cpp
+main.o: main.cpp timer.h utils.h image_process.cpp
 	g++ -c main.cpp $(GCC_OPTS) -I $(CUDA_INCLUDEPATH) -I $(OPENCV_INCLUDEPATH)
 
-student_func.o: student_func.cu utils.h
-	nvcc -c student_func.cu $(NVCC_OPTS)
+rgba_to_grey.o: rgba_to_grey.cu utils.h
+	nvcc -c rgba_to_grey.cu $(NVCC_OPTS)
 
 clean:
 	rm -f *.o *.png hw
