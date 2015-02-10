@@ -25,8 +25,8 @@ void rgba_to_grey_kernel(const uchar4* const rgbaImage,
   //calculate a 1D offset
 }
 
-void rgba_to_grey(const uchar4 * const h_rgbaImage, uchar4 * const d_rgbaImage,
-                            unsigned char* const d_greyImage, size_t numRows, size_t numCols)
+void rgba_to_grey(uchar4 * const d_rgbaImage,
+                  unsigned char* const d_greyImage, size_t numRows, size_t numCols)
 {
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
